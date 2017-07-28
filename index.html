@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content/>
+    <title>Calculator++</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="icon" href="image/icon.png" sizes="32x32" type="image/png" />
+    <script src="data/currency.js"></script>
+    <script src="data/salution.js"></script>
+    <script type="text/javascript" src="https://www.nowapi.com/style/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <section id="title">
+                <h1>Calculator++</h1>
+                <h2>Designed for calculation AND MORE</h2>
+            </section>
+            <nav class="menu-bar">
+                <ul>
+                    <li><a href="#rs-calculator" id="tors-calculator">亲戚称呼计算</a></li>
+                    <li><a href="#er-calculator" id="toer-calculator">汇率计算</a></li>
+                    <li><a href="#graph" id="tograph">函数绘图</a></li>
+                    <li><a href="#calculator" id="tocalculator">普通计算</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="main-container">
+            <section class="widget" id="welcome">
+                <div class="face">
+                    <img src="image/icon.png" />
+                    <p>Welcome to Calculator++</p>
+                </div>
+            </section>
+            <section class="widget" id="calculator">
+                <div class="face">
+                    <div class="mainface">
+                        <div class="screen" id="calculator-screen">
+                            <input type="text" id="expression" name="expression" maxlength="150" />
+                            <p class="result" id="result">0</p>
+                        </div>
+                        <div class="board">
+                            <div class="clearfix">
+                                <span class="button-tri"><button id="sin" onclick="add('sin()')">sin</button></span>
+                                <span class="button-tri"><button id="cos" onclick="add('cos()')">cos</button></span>
+                                <span class="button-tri"><button id="tan" onclick="add('tan()')">tan</button></span>
+                                <span class="button-ud"><button id="up" onclick="up()"></button></span>
+                                <span class="button-log"><button id="lg" onclick="add('lg()')">log</button></span>
+                                <span class="button-log"><button id="ln" onclick="add('ln()')">ln</button></span>
+                            </div>
+                            <div class="clearfix">
+                                <span class="button-cha"><button id="fac" onclick="add('()!')">!</button></span>
+                                <span class="button-cha"><button id="pow" onclick="add('()^()')">^</button></span>
+                                <span class="button-cur"><button id="c-l" onclick="c_l()"></button></span>
+                                <span class="button-cur"><button id="c-r" onclick="c_r()"></button></span>
+                                <span class="button-cha"><button id="pai" onclick="add('π')">π</button></span>
+                                <span class="button-cha"><button id="nlg" onclick="add('e')">e</button></span>
+                            </div>
+                            <div class="clearfix">
+                                <span class="button-del"><button id="cle" onclick="cle()">C</button></span>
+                                <span class="button-ud"><button id="dwn" onclick="dwn()"></button></span>
+                                <span class="button-del"><button id="del" onclick="del()">DEL </button></span>
+                            </div>
+                            <table>
+                                <tr>
+                                    <td><button id="plu" onclick="add('+')">+</button></td>
+                                    <td><button id="miu" onclick="add('-')">-</button></td>
+                                    <td><button id="mul" onclick="add('*')">*</button></td>
+                                    <td><button id="div" onclick="add('/')">/</button></td>
+                                </tr>
+                                <tr>
+                                    <td><button id="sev" onclick="add('7')">7</button></td>
+                                    <td><button id="egi" onclick="add('8')">8</button></td>
+                                    <td><button id="nin" onclick="add('9')">9</button></td>
+                                    <td><button id="ans" onclick="ans()">Ans</button></td>
+                                </tr>
+                                <tr>
+                                    <td><button id="fou" onclick="add('4')">4</button></td>
+                                    <td><button id="fiv" onclick="add('5')">5</button></td>
+                                    <td><button id="six" onclick="add('6')">6</button></td>
+                                    <td><button id="dot" onclick="add('.')">.</button></td>
+                                </tr>
+                                <tr>
+                                    <td><button id="one" onclick="add('1')">1</button></td>
+                                    <td><button id="two" onclick="add('2')">2</button></td>
+                                    <td><button id="thr" onclick="add('3')">3</button></td>
+                                    <td rowspan="2"><button id="equ" onclick="equ()">=</button></td>
+                                </tr>
+                                <tr>
+                                    <td><button id="lef" onclick="add('(')">(</button></td>
+                                    <td><button id="zer" onclick="add('0')">0</button></td>
+                                    <td><button id="rig" onclick="add(')')">)</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="widget" id="graph">
+                <div class="face">
+                    <div class="mainface">
+                        <div>
+                            <label for="func-exp"> 函数表达式(Function expression): </label>
+                            <input type="text" id="func-exp" name="func-exp" />
+                            <p>NOTE: 函数形式为y=f(x) (Function form: y=f(x))<button onclick="draw()">确认(Confirm)</button></p>
+                        </div>
+                        <div id="canvas-box">
+                            <canvas id="func-image" width="1000px" height="500px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="widget" id="er-calculator">
+                <div class="face">
+                    <div class="mainface">
+                        <form>
+                            <h2>REAL-TIME Exchange Rate Operator</h2>
+                            <section>
+                                <label for="amount">金额(Amount of money)<span> *</span></label>
+                                <input type="text" id="amount" name="amount" />
+                            </section>
+                            <section>
+                                <label for="ori-cur">原币种(FROM)<span> *</span></label>
+                                <select id="ori-cur" name="ori-cur">
+                                </select><br/>
+                                <label for="obj-cur">目标币种(TO)<span> *</span></label>
+                                <select id="obj-cur" name="obj-cur">
+                                </select>
+                            </section>
+                            <button type="button" onclick="_compute()">确认(Confirm)</button>
+                        </form>
+                        <div>
+                            <p class="result">结果(Result):<b id="ex-result">0</b></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="widget" id="rs-calculator">
+                <div class="face">
+                    <div class="mainface">
+                        <form>
+                            <h2>Relative Salution Calculator</h2>
+                            <section>
+                                <label for="relation">[基本关系(Base Relation)]</label>
+                                <select id="relation" name="relation">
+                                    <option value="1" id="rel1">父亲</option>
+                                    <option value="2" id="rel2">母亲</option>
+                                    <option value="3" id="rel3">丈夫</option>
+                                    <option value="4" id="rel4">妻子</option>
+                                    <option value="5" id="rel5">哥哥</option>
+                                    <option value="6" id="rel6">姐姐</option>
+                                    <option value="7" id="rel7">弟弟</option>
+                                    <option value="8" id="rel8">妹妹</option>
+                                    <option value="9" id="rel9">儿子</option>
+                                    <option value="10" id="rel10">女儿</option>
+                                </select>
+                            </section>
+                            <button type="button" onclick="add_rel()">添加(Add)</button>
+                            <button type="button" onclick="rcl_rel()">撤销(Recall)</button>
+                            <button type="button" onclick="set_rel()">确认(Confirm)</button>
+                            <p id="rl-tree">你</p>
+                        </form>
+                        <div>
+                            <p class="result">称为(Is called):<b id="rs-result"></b></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        $('#tocalculator').click(function() {
+            $('#welcome').fadeOut();
+            $('#calculator').fadeIn();
+            $('#graph').fadeOut();
+            $('#er-calculator').fadeOut();
+            $('#rs-calculator').fadeOut();
+        });
+        $('#tograph').click(function() {
+            $('#welcome').fadeOut();
+            $('#calculator').fadeOut();
+            $('#graph').fadeIn();
+            $('#er-calculator').fadeOut();
+            $('#rs-calculator').fadeOut();
+        });
+        $('#toer-calculator').click(function() {
+            $('#welcome').fadeOut();
+            $('#calculator').fadeOut();
+            $('#graph').fadeOut();
+            $('#er-calculator').fadeIn();
+            $('#rs-calculator').fadeOut();
+        });
+        $('#tors-calculator').click(function() {
+            $('#welcome').fadeOut();
+            $('#calculator').fadeOut();
+            $('#graph').fadeOut();
+            $('#er-calculator').fadeOut();
+            $('#rs-calculator').fadeIn();
+        });
+        
+        function addCurrency(id, _select) {
+            for (let i of currency) {
+                let j = document.createElement("option");
+                j.nodeValue = i.curno;
+                j.innerHTML = i.curnm + '(' + i.curno + ')';
+                if (i.curno === _select) {
+                    j.selected = true;
+                }
+                document.getElementById(id).appendChild(j);
+            }
+        }
+        addCurrency('ori-cur', 'CNY');
+        addCurrency('obj-cur', 'USD');
+
+    </script>
+</body>
+<script type="text/javascript" src="js/relation.js"></script>
+<script type="text/javascript" src="js/button.js"></script>
+<script type="text/javascript" src="js/Process.js"></script>
+<script type="text/javascript" src="js/exchangeRate.js"></script>
+<script type="text/javascript" src="js/Drawing.js"></script>
+
+</html>

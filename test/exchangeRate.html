@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+</head>
+<body>
+    <div id="ex-result">1</div>
+    <button onclick="getValue('USD', 'CNY')">8888</button>
+</body>
+    <script type="text/javascript" src="https://www.nowapi.com/style/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    
+function getValue(scur, tcur){
+    var res = 0;
+    $.ajax({
+        type          : 'get',
+        async         : false,
+        url           : 
+         'http://api.k780.com/?app=finance.rate&scur=' + scur + '&tcur=' + tcur + '&appkey=27095&sign=1c57140e0be0de23e95e22ed7a62746e&format=json&jsoncallback=data',
+        dataType      : 'jsonp',
+        jsonp         : 'callback',
+        jsonpCallback : 'data',
+        success       : function(data){
+            if(data.success!='1'){
+                alert(data.msgid+' '+data.msg);
+                exit;
+            }
+            res = Number(data.result.rate);
+            document.getElementById("ex-result").innerHTML = Number(document.getElementById("amount").value) + "  " + ori + "  =  " 
+                                                           + Number(document.getElementById("amount").value) * res + "  " + obj ;
+            alert(document.getElementById("ex-result").innerHTML);
+            //遍历
+            var description = "";
+            for(var i in data.result){
+                var property=data.result[i];
+                description+=i+" = "+property+"\n";
+            }
+        },
+        error:function(){
+            alert('fail');
+        }
+    });
+}
+
+
+
+</script>
+</html>
